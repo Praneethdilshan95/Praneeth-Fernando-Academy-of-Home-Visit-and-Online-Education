@@ -4,7 +4,7 @@ function generateTable() {
     let tableOutput = document.getElementById('table-output');
 
     // Ensure input is a single digit between 1 and 9
-    if (isNaN(num) || num < 1 || num > 9) {
+    if (isNaN(num) || num < 1 || num > 9 || num > 9) {
         num = 1; // Default to 1 if invalid input
     }
 
@@ -20,16 +20,6 @@ function generateTable() {
     } else {
         // Hide the table
         tableOutput.style.display = 'none';
-    }
-}
-
-function validateInput() {
-    let inputField = document.getElementById('number');
-    let value = inputField.value;
-    
-    // If input is more than one digit, reset it to 1
-    if (value.length > 1 || value < 1 || value > 9) {
-        inputField.value = 1;
     }
 }
 
