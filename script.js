@@ -48,12 +48,23 @@ function checkAnswer() {
     let userAnswer = parseInt(document.getElementById('userAnswer').value, 10);
     let resultElement = document.getElementById('result');
 
+    // Check if the user's answer is correct
     if (userAnswer === correctAnswer) {
-        resultElement.innerText = `Correct! The answer is ${correctAnswer}. Generating a new question...`;
+        resultElement.innerText = `Correct! The answer is ${correctAnswer}.`;
     } else {
-        resultElement.innerText = `Wrong answer. The correct answer was ${correctAnswer}. Try again!`;
+        resultElement.innerText = `Wrong answer. The correct answer was ${correctAnswer}.`;
     }
 
-    // Generate a new question after the user answers
-    generateQuestion();
+    // Disable the input field and button until a new question is generated
+    document.getElementById('userAnswer').disabled = true;
+    document.querySelector('#quiz-container button').disabled = true;
+
+    // Show the result and wait for a moment before generating a new question
+    setTimeout(generateQuestion, 2000); // 2 seconds delay
+}
+
+// To enable input and button for the next question
+function enableInput() {
+    document.getElementById('userAnswer').disabled = false;
+    document.querySelector('#quiz-container button').disabled = false;
 }
