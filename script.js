@@ -3,6 +3,12 @@ function generateTable() {
     let num = document.getElementById('number').value;
     let tableOutput = document.getElementById('table-output');
 
+    // Validate input between 1 and 9
+    if (num < 1 || num > 9) {
+        alert('Please enter a number between 1 and 9.');
+        return;
+    }
+
     // Check if the table is already visible
     if (tableOutput.style.display === 'none' || tableOutput.style.display === '') {
         // Generate and show the table
@@ -20,17 +26,34 @@ function generateTable() {
 
 // Quiz Game
 let num1, num2, correctAnswer;
+let score = 0;
+let questionCount = 0;
+const totalQuestions = 10;
 
 function startQuiz() {
     // Hide the start button and show the quiz container
     document.getElementById('start-container').style.display = 'none';
     document.getElementById('quiz-container').style.display = 'block';
 
+    // Reset score and question count
+    score = 0;
+    questionCount = 0;
+
     // Generate the first question
     generateQuestion();
 }
 
 function generateQuestion() {
+    // Check if the quiz is completed
+    if (questionCount >= totalQuestions) {
+        // Show final score
+        document.getElementById('question').innerText = `Quiz completed! Your final score is ${score} out of ${totalQuestions}.`;
+        document.getElementById('result').innerText = '';
+        document.getElementById('userAnswer').style.display = 'none';
+        document.querySelector('#quiz-container button').style.display = 'none';
+        return;
+    }
+
     // Generate two random numbers between 1 and 9
     num1 = Math.floor(Math.random() * 9) + 1;
     num2 = Math.floor(Math.random() * 9) + 1;
@@ -54,6 +77,7 @@ function checkAnswer() {
     // Check if the user's answer is correct
     if (userAnswer === correctAnswer) {
         resultElement.innerText = `Correct! The answer is ${correctAnswer}.`;
+        score++; // Increase score for correct answer
     } else {
         resultElement.innerText = `Wrong answer. The correct answer was ${correctAnswer}.`;
     }
@@ -61,8 +85,11 @@ function checkAnswer() {
     // Disable the input field and button to prevent immediate further submissions
     disableInput();
 
-    // Show the result and wait for a moment before generating a new question
-    setTimeout(generateQuestion, 2000); // 2 seconds delay
+    // Wait for a moment before generating a new question
+    setTimeout(() => {
+        questionCount++;
+        generateQuestion(); // Generate the next question
+    }, 2000); // 2 seconds delay
 }
 
 function disableInput() {
