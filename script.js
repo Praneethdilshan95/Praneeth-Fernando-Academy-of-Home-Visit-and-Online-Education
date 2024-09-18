@@ -23,6 +23,16 @@ function generateTable() {
     }
 }
 
+function validateInput() {
+    let inputField = document.getElementById('number');
+    let value = inputField.value;
+    
+    // If input is more than one digit, reset it to 1
+    if (value.length > 1 || value < 1 || value > 9) {
+        inputField.value = 1;
+    }
+}
+
 // Quiz Game
 let num1, num2, correctAnswer;
 let score = 0;
@@ -65,7 +75,7 @@ function generateQuestion() {
 
     // Update the question text with question number
     questionCount++;
-    document.getElementById('question').innerText = `Question ${questionCount}: What is ${num1} x ${num2}?`;
+    document.getElementById('question').innerText = `Question ${questionCount} out of ${totalQuestions}: What is ${num1} x ${num2}?`;
     document.getElementById('result').innerText = ''; // Clear previous result
     document.getElementById('userAnswer').value = ''; // Clear previous user input
 
