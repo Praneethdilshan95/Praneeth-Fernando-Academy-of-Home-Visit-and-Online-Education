@@ -7,7 +7,7 @@ function generateTable() {
     if (tableOutput.style.display === 'none' || tableOutput.style.display === '') {
         // Generate and show the table
         let output = '<h3>Multiplication Table for ' + num + ':</h3>';
-        for (let i = 1; i <= 12; i++) {
+        for (let i = 1; i <= 9; i++) { // Updated range to 9
             output += num + ' x ' + i + ' = ' + (num * i) + '<br>';
         }
         tableOutput.innerHTML = output;
@@ -42,6 +42,9 @@ function generateQuestion() {
     document.getElementById('question').innerText = `What is ${num1} x ${num2}?`;
     document.getElementById('result').innerText = ''; // Clear previous result
     document.getElementById('userAnswer').value = ''; // Clear previous user input
+
+    // Enable input and button for the new question
+    enableInput();
 }
 
 function checkAnswer() {
@@ -55,15 +58,18 @@ function checkAnswer() {
         resultElement.innerText = `Wrong answer. The correct answer was ${correctAnswer}.`;
     }
 
-    // Disable the input field and button until a new question is generated
-    document.getElementById('userAnswer').disabled = true;
-    document.querySelector('#quiz-container button').disabled = true;
+    // Disable the input field and button to prevent immediate further submissions
+    disableInput();
 
     // Show the result and wait for a moment before generating a new question
     setTimeout(generateQuestion, 2000); // 2 seconds delay
 }
 
-// To enable input and button for the next question
+function disableInput() {
+    document.getElementById('userAnswer').disabled = true;
+    document.querySelector('#quiz-container button').disabled = true;
+}
+
 function enableInput() {
     document.getElementById('userAnswer').disabled = false;
     document.querySelector('#quiz-container button').disabled = false;
